@@ -3,5 +3,4 @@ const hardCodedPuppies = [
   { id: 2, name: 'Ben' },
   { id: 3, name: 'Bubba' }
 ];
-
 export default hardCodedPuppies;
