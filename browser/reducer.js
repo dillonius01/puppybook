@@ -1,13 +1,42 @@
+import { combineReducers } from 'redux'; 
 
-function puppyReducer(state = {allPuppies: []}, action) {
+const currentPuppyReducer = (state = {id: -1, name: '', image: ''}, action) => {
 	switch (action.type) {
 		case 'LOAD_PUPPY':
-			return Object.assign({}, state, {allPuppies: action.allPuppies})
-		case 'LOAD_PUPPIES':
-			return Object.assign({}, state, {allPuppies: action.allPuppies})
+			return action.currentPuppy;
+		case 'LEAVE_PUP':
+			return {};
 		default:
 			return state
 	}
 }
 
-export default puppyReducer;
+const allPuppiesReduer = (state = [], action) => {
+	switch (action.type) {
+		case 'LOAD_PUPPIES':
+			return action.allPuppies;
+		default:
+			return state; 
+	}
+}
+
+export default combineReducers({
+	currentPuppyReducer,
+	allPuppiesReduer
+}) 
+
+
+
+
+// function puppyReducer(state = {allPuppies: [], currentPuppy: {id: -1, name: '', image: ''}}, action) {
+// 	switch (action.type) {
+// 		case 'LOAD_PUPPY':
+// 			return Object.assign({}, state, {currentPuppy: action.currentPuppy})
+// 		case 'LOAD_PUPPIES':
+// 			return Object.assign({}, state, {allPuppies: action.allPuppies})
+// 		case 'LEAVE_PUP':
+// 			return Object.assign({}, state, {currentPuppy: {}})
+// 		default:
+// 			return state
+// 	}
+// }

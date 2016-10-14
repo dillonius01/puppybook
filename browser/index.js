@@ -8,17 +8,29 @@ import thunkMiddleware from 'redux-thunk';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 
 import AllPuppiesContainer from './AllPuppiesContainer';
-import SinglePuppy from './SinglePuppy';
-import puppyReducer from './reducer';
-import { fetchPuppies } from './action-creators';
+import SinglePuppyContainer from './SinglePuppyContainer';
+import rootReducer from './reducer';
+import { fetchPuppies, fetchPuppy, leavePup } from './action-creators';
 
-const store = createStore(puppyReducer, applyMiddleware(thunkMiddleware));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
+
+// ONENTER & ONLEAVE
 const onAppEnter = () => {
   return store.dispatch(fetchPuppies())
 }
 
-class BaseRoute extends React.Component {
+const onPupperLeave = () => {
+	return store.dispatch(leavePup())
+}
+
+// note: nextState is Router state
+const onPuppyEnter = (nextState) => {
+	store.dispatch(fetchPuppy(nextState.params.id))
+}
+
+
+class MainApp extends React.Component {
 
   render() {
     return (
@@ -33,10 +45,10 @@ class BaseRoute extends React.Component {
 ReactDOM.render(
   <Provider store={store}>
     <Router history= { hashHistory }>
-        <Route path="/" onEnter={ onAppEnter } component={ BaseRoute }>
+        <Route path="/" onEnter={ onAppEnter } component={ MainApp }>
           <IndexRoute component={ AllPuppiesContainer } />
           <Route path="puppies" component={ AllPuppiesContainer } />
-          <Route path="puppies/:puppyId" component={ SinglePuppy } />
+          <Route path="puppies/:id" onEnter={ onPuppyEnter } onLeave={ onPupperLeave } component={ SinglePuppyContainer } />
         </Route>
     </Router>
   </Provider>,

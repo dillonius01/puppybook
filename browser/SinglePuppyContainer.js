@@ -1,10 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SinglePuppy from './SinglePuppy';
-//import { fetchPuppies } from './action-creators';
+import { fetchPuppy } from './action-creators';
 
-const mapStateToProps = ({ allPuppies }, ownProps) => ({
-	allPuppies
+const mapStateToProps = ({ currentPuppy }, ownProps) => ({
+	currentPuppy
 })
 
-export default connect(mapStateToProps)(AllPuppies);
+const mapDispatchToProps = (dispatch) => ({
+	renderSinglePuppy: (id) => dispatch(fetchPuppy(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SinglePuppy);
