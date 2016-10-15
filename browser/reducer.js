@@ -20,23 +20,11 @@ const allPuppiesReduer = (state = [], action) => {
 	}
 }
 
-export default combineReducers({
-	currentPuppyReducer,
-	allPuppiesReduer
+const rootReducer = combineReducers({
+	currentPuppy: currentPuppyReducer,
+	allPuppies: allPuppiesReduer
 }) 
 
+export default rootReducer;
 
 
-
-// function puppyReducer(state = {allPuppies: [], currentPuppy: {id: -1, name: '', image: ''}}, action) {
-// 	switch (action.type) {
-// 		case 'LOAD_PUPPY':
-// 			return Object.assign({}, state, {currentPuppy: action.currentPuppy})
-// 		case 'LOAD_PUPPIES':
-// 			return Object.assign({}, state, {allPuppies: action.allPuppies})
-// 		case 'LEAVE_PUP':
-// 			return Object.assign({}, state, {currentPuppy: {}})
-// 		default:
-// 			return state
-// 	}
-// }

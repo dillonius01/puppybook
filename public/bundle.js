@@ -74,7 +74,7 @@
 	
 	var _SinglePuppyContainer2 = _interopRequireDefault(_SinglePuppyContainer);
 	
-	var _reducer = __webpack_require__(263);
+	var _reducer = __webpack_require__(264);
 	
 	var _reducer2 = _interopRequireDefault(_reducer);
 	
@@ -89,6 +89,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	console.log(store.getState());
 	
 	// ONENTER & ONLEAVE
 	var onAppEnter = function onAppEnter() {
@@ -28711,7 +28712,7 @@
 /* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -28722,6 +28723,8 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(197);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -28741,30 +28744,30 @@
 	  }
 	
 	  _createClass(AllPuppies, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      var allPuppies = this.props.allPuppies;
 	
 	
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "container flexbox-container" },
+	        'div',
+	        { className: 'container flexbox-container' },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "jumbotron" },
+	          'div',
+	          { className: 'jumbotron' },
 	          _react2.default.createElement(
-	            "div",
+	            'div',
 	            null,
 	            _react2.default.createElement(
-	              "ul",
-	              { className: "list-unstyled" },
+	              'ul',
+	              { className: 'list-unstyled' },
 	              allPuppies && allPuppies.map(function (puppy) {
 	                return _react2.default.createElement(
-	                  "li",
+	                  'li',
 	                  { key: puppy.id },
 	                  _react2.default.createElement(
-	                    "a",
-	                    { href: "#" },
+	                    _reactRouter.Link,
+	                    { to: '/puppies/' + puppy.id },
 	                    puppy.name
 	                  )
 	                );
@@ -28878,7 +28881,7 @@
 	
 	var _reactRedux = __webpack_require__(187);
 	
-	var _SinglePuppy = __webpack_require__(264);
+	var _SinglePuppy = __webpack_require__(263);
 	
 	var _SinglePuppy2 = _interopRequireDefault(_SinglePuppy);
 	
@@ -28905,62 +28908,6 @@
 
 /***/ },
 /* 263 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _redux = __webpack_require__(172);
-	
-	var currentPuppyReducer = function currentPuppyReducer() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { id: -1, name: '', image: '' };
-		var action = arguments[1];
-	
-		switch (action.type) {
-			case 'LOAD_PUPPY':
-				return action.currentPuppy;
-			case 'LEAVE_PUP':
-				return {};
-			default:
-				return state;
-		}
-	};
-	
-	var allPuppiesReduer = function allPuppiesReduer() {
-		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-		var action = arguments[1];
-	
-		switch (action.type) {
-			case 'LOAD_PUPPIES':
-				return action.allPuppies;
-			default:
-				return state;
-		}
-	};
-	
-	exports.default = (0, _redux.combineReducers)({
-		currentPuppyReducer: currentPuppyReducer,
-		allPuppiesReduer: allPuppiesReduer
-	});
-	
-	// function puppyReducer(state = {allPuppies: [], currentPuppy: {id: -1, name: '', image: ''}}, action) {
-	// 	switch (action.type) {
-	// 		case 'LOAD_PUPPY':
-	// 			return Object.assign({}, state, {currentPuppy: action.currentPuppy})
-	// 		case 'LOAD_PUPPIES':
-	// 			return Object.assign({}, state, {allPuppies: action.allPuppies})
-	// 		case 'LEAVE_PUP':
-	// 			return Object.assign({}, state, {currentPuppy: {}})
-	// 		default:
-	// 			return state
-	// 	}
-	// }
-
-/***/ },
-/* 264 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -29028,6 +28975,51 @@
 	}(_react.Component);
 	
 	exports.default = SinglePuppy;
+
+/***/ },
+/* 264 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _redux = __webpack_require__(172);
+	
+	var currentPuppyReducer = function currentPuppyReducer() {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { id: -1, name: '', image: '' };
+		var action = arguments[1];
+	
+		switch (action.type) {
+			case 'LOAD_PUPPY':
+				return action.currentPuppy;
+			case 'LEAVE_PUP':
+				return {};
+			default:
+				return state;
+		}
+	};
+	
+	var allPuppiesReduer = function allPuppiesReduer() {
+		var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+		var action = arguments[1];
+	
+		switch (action.type) {
+			case 'LOAD_PUPPIES':
+				return action.allPuppies;
+			default:
+				return state;
+		}
+	};
+	
+	var rootReducer = (0, _redux.combineReducers)({
+		currentPuppy: currentPuppyReducer,
+		allPuppies: allPuppiesReduer
+	});
+	
+	exports.default = rootReducer;
 
 /***/ }
 /******/ ]);

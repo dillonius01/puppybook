@@ -13,7 +13,7 @@ import rootReducer from './reducer';
 import { fetchPuppies, fetchPuppy, leavePup } from './action-creators';
 
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-
+console.log(store.getState());
 
 // ONENTER & ONLEAVE
 const onAppEnter = () => {
