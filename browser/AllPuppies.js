@@ -1,25 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router';
 
-export default class AllPuppies extends React.Component {
-  
-  componentDidMount() {
-    this.props.loadAllPuppies();
-  }
+export default ( {allPuppies} ) => (
 
-  render() {
-    const allPuppies = this.props.allPuppies
+  <div className="container flexbox-container">
+    <div className="jumbotron">
+      <ul className="list-unstyled">
+        {
+          allPuppies && allPuppies.map(puppy => {
+            return <li key={ puppy.id }><Link to={`/puppies/${puppy.id}`}>{ puppy.name }</Link></li>
+          })
+        }
+      </ul>
+    </div>
+  </div>
+)
 
-    return (
-      <div className="container flexbox-container">
-        <div className="jumbotron">
-          <ul className="list-unstyled">
-            {
-              allPuppies && allPuppies.map(puppy => {
-                return <li key={ puppy.id }><a href="#">{ puppy.name }</a></li>
-              })       
-            }
-          </ul>
-        </div>
-      </div>
-  )}
-}

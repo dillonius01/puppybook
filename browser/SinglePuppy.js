@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 
-export default class SinglePuppy extends Component {
+export default ({currentPuppy}) => (
 
-  render () {
-    return (
+  <div className="container flexbox-container">
+    <div className="jumbotron">
+      <h2>{ currentPuppy.name }</h2>
       <div>
-        <h2>PUPPY NAME GOES HERE</h2>
-        <div>
-          <img src="http://placehold.it/400x400" />
-        </div>
+        <img src={ currentPuppy.image } />
       </div>
-    )
-  }
-}
+    </div>
+  </div> 
+
+)
+
