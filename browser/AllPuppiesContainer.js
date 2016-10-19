@@ -1,10 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import AllPuppies from './AllPuppies';
+
 import { fetchPuppies } from './action-creators';
 
-const mapStateToProps = ({ allPuppies }, ownProps) => ({
+
+const mapStateToProps = ({ allPuppies }) => ({
 	allPuppies
 })
 
-export default connect(mapStateToProps)(AllPuppies);
+const mapDispatchToProps = dispatch => ({
+	loadAllPuppies: () => dispatch(fetchPuppies())
+})
+
+const AllPuppiesContainer = connect(mapStateToProps, mapDispatchToProps)(AllPuppies);
+
+export default AllPuppiesContainer;
+

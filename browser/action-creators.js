@@ -1,54 +1,18 @@
-// Imports
-import hardCodedPuppies from './store';
-
 // Action Types
-const LOAD_PUPPIES = 'LOAD_PUPPIES';
-const LOAD_PUPPY = 'LOAD_PUPPY';
-const LEAVE_PUP = 'LEAVE_PUP';
+export const RENDER_PUPPIES = 'RENDER_PUPPIES';
 
-// SYNC Action Creators
-export const loadPuppies = (allPuppies) => {
-	return {
-		type: LOAD_PUPPIES,
-		allPuppies
-	}
-}
+// Action Creators
+const renderPuppies = (allPuppies) => ({
+	type: RENDER_PUPPIES,
+	allPuppies
+})
 
-export const loadPuppy = (currentPuppy) => {
-	return {
-		type: LOAD_PUPPY,
-		currentPuppy
-	}
-}
-
-
-export const leavePup = () => {
-	return {
-		type: LEAVE_PUP
-	}
-}
-
-
-// ASYNC Action Creators
-export const fetchPuppy = (id) => {
-	return (dispatch) => {
-		fetch(`/api/puppies/${id}`)
-			.then(puppy => puppy.json())
-			.then(puppy => dispatch(loadPuppy(puppy)))
-			.catch(err => {
-				console.log(err)
-			})
-	}
-}
-
+// Thunk Creators
 export const fetchPuppies = () => {
-	return (dispatch) => {
+	return dispatch => {
 		fetch('/api/puppies')
 			.then(puppies => puppies.json())
-			.then(puppies => dispatch(loadPuppies(puppies)))
-			.catch(err => {
-				console.log(err)
-			})
+			.then(puppies => dispatch(renderPuppies(puppies)))
+			.catch(err => console.error(err))
 	}
 }
-
